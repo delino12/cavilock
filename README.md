@@ -31,8 +31,11 @@ Next is to clear compiled class, run the following command.
 ### How to use (Middleware)
 ```javascript
 $verify = new Cavilock::verify();
-if($verify == true){
+if($verify["status"] == true){
     // return 
     return closure($request);
+}else{
+	// do other cool stuff
+	
 }
 ```
