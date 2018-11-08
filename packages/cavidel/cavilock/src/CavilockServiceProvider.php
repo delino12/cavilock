@@ -25,6 +25,9 @@ class CavilockServiceProvider extends ServiceProvider
     public function register()
     {
         // register our controller
+        $this->app->bind('cavidel-cavilock', function (){
+            return new Cavilock();
+        });
         $this->app->make('Cavidel\Cavilock\CavilockController');
         $this->loadViewsFrom(__DIR__.'/views', 'cavilock');
     }
