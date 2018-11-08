@@ -20,22 +20,26 @@ class Cavilock
 	    		"software_key" => $software_key
 	    	);
 
-	    	$ch = curl_init();
-	    	curl_setopt($ch, CURLOPT_URL, $software_host);
-	    	curl_setopt($ch, CURLOPT_POST, true);
-	    	curl_setopt($ch, CURLOPT_POSTFIELDS, $query);
-	    	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	    	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 200);
-	    	$res = curl_exec($ch);
-	    	$data = json_decode($res, true);
-	    	if($data["status"] == true){
-	    		return $data;
-	    	}else{
-	    		return view('cavilock::expired');
-	    	}
+	    	try {
+	    		$ch = curl_init();
+		    	curl_setopt($ch, CURLOPT_URL, $software_host);
+		    	curl_setopt($ch, CURLOPT_POST, true);
+		    	curl_setopt($ch, CURLOPT_POSTFIELDS, $query);
+		    	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		    	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 200);
+		    	$res = curl_exec($ch);
+		    	$data = json_decode($res, true);
+		    	if($data["status"] == true){
+		    		return $data;
+		    	}else{
+		    		return view('cavilock::expired');
+		    	}
 
-	    	// close curl process 
-	    	curl_close($ch);
+		    	// close curl process 
+		    	curl_close($ch);	
+	    	} catch (Exception $e) {
+	    		echo 'Message: ' .$e->getMessage();
+	    	}
     	}
     }
 }
